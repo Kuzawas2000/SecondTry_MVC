@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SecondTry.Models.People>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Starting Page</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+       
+</p>
+@using (Html.BeginForm("Index", "People", FormMethod.Get))
+{
+    <p>
+        Title: @Html.TextBox("searchstring") <br />
+        <input type="submit" value="Search for Name" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gender)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gender)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+    <h2>
+        IF you want to upload file. It must be *.csv file.
+    </h2>
+
+
+
+@using (Html.BeginForm("Index", "People", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <input type="submit" value="OK" />
+}
+</table>
